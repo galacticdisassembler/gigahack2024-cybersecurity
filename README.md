@@ -60,7 +60,7 @@
   
   - Workstation name is `GWS-HOME`.
   
-  - Wrote a program in <u>C# for linux </u>and <u>C++ for windows</u>? *(Is he from Australia? Why is he doing things upside down?)*
+  - Wrote a program in <u>C# for linux </u>and <u>C# for windows</u>? 
   
   - Likes `Astrologic imagery`?
   
@@ -141,3 +141,6 @@ Remote
 7.31.43.60
 
 007d01fb02b403c2
+
+10, 92, 1d, c8, ed, a9, f2, 2c, 00, 7d, 01, fb, 02, b4, 03, c2
+1, 0, 9, 2, 1, d, c, 8, e, d, a, 9, f, 2, 2, c, 0, 0, 7, d, 0, 1, f, b, 0, 2, b, 4, 0, 3, c, 2
