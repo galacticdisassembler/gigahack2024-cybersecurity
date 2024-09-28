@@ -6,19 +6,23 @@
 ❌ - No
 ❔- IDK 
 
-| Clue                      | Investigated? | Decoy? | Description | Conclusion |
-| ------------------------- | ------------- | ------ | ----------- | ---------- |
-| Validator C#              | ❌             | ❔      | ❔           | ❔          |
-| Validator C++             | ❌             | ❔      | ❔           | ❔          |
-| Source                    | ❌             | ❔      | ❔           | ❔          |
-| Private Key               | ❌             | ❔      | ❔           | ❔          |
-| Public Key bayron@cordano | ❌             | ❔      | ❔           | ❔          |
-| KeyPass                   | ✅             | ❌      | ❔           | ❔          |
-| Public Key serj@GWS-HOME  | ❌             | ❔      | ❔           | ❔          |
-| Username `serj`           | ❌             | ❔      | ❔           | ❔          |
-| Hostname `GWS-HOME`       | ❌             | ❔      | ❔           | ❔          |
-| Remote                    | ❌             | ❔      | ❔           | ❔          |
-| IP Address                | ❌             | ❔      | ❔           | ❔          |
+| Clue                                                                            | Investigated? | Decoy? | Description                             | Conclusion                                                |
+| ------------------------------------------------------------------------------- | ------------- | ------ | --------------------------------------- | --------------------------------------------------------- |
+| Validator C#                                                                    | ❌             | ❔      | ❔                                       | ❔                                                         |
+| Validator C++                                                                   | ❌             | ❔      | ❔                                       | ❔                                                         |
+90
+| Source                                                                          | ❌             | ❔      | 2                                       | ❔                                                         |
+| Private Key                                                                     | ❌             | ❔      | ❔                                       | ❔                                                         |
+| Public Key bayron@cordano                                                       | ❌             | ❔      | ❔                                       | ❔                                                         |
+| KeyPass                                                                         | ✅             | ❌      | ❔                                       | ❔                                                         |
+| Public Key serj@GWS-HOME                                                        | ❌             | ❔      | ❔                                       | ❔                                                         |
+| Username `serj`                                                                 | ❌             | ❔      | ❔                                       | ❔                                                         |
+| Hostname `GWS-HOME`                                                             | ❌             | ❔      | ❔                                       | ❔                                                         |
+| Remote                                                                          | ✅             | ❌      | Indexed images with hex byte difference | Yeild `Cardano Node IP`                                   |
+| 125.251.180.194                                                                 | ✅             | ❌      | Cardano node IP Serj connected to       | Yeild Location `Korea`                                    |
+| Cardano node location `Korea`, `Seoul`                                          | ✅             | ❌      | IP lookup showed that IP was in Korea   | Cardano Node Serj connected to was hosted in Korea, Seoul |
+100
+| Cardano pool address `44d7fba88039561837d64773c1e7728c34f1c300edc9fa280263cc7f` | ❌             | ❔      | ❔                                       |                                                           |
 
 ## Investigation
 
