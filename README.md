@@ -31,7 +31,7 @@ The information presented in this document is based on the assumption that the c
 
 ## Investigation
 
-1. **USB Flash Drive**: 
+1. **USB Flash Drive**:
    - **Producer**: TrekStor, Model: Leo
    - **Capacity**: 16GB split into two volumes:
      - **EXFAT Volume** (12GB, Windows-visible): Contains images and validator binaries.
@@ -52,13 +52,27 @@ The information presented in this document is based on the assumption that the c
      - **Folder: KeyPass**: Contains images slightly modified from the `Source` folder (1 hex byte difference).
      - **Folder: Remote**: Indexed images with two hex bytes difference, potentially used to obfuscate or encode data.
      - **Key Findings**: Sensitive cryptographic data (public/private keys) found, suggesting potential access to external systems.
+To reference the code listings in your investigation chapter, you can use formal cross-references and briefly describe what each annex covers. Here's an example of how you could reference the annexes:
 
-3. **Validator Binaries**:
-   - **Windows Validator** (C#): Checks if the `ADA` environment variable is set to `Lovelace` and validates files based on their hash.
-   - **Linux Validator** (.NET): Similar functionality, but built for Linux.
-   - **Key Findings**: These validators seem to be part of a custom file validation system, possibly for a blockchain-related application (Cardano). All images under `Source` folder are `Valid`. All images under `KeyPass` and `Remote` folders are `Invalid`
+---
 
-4. **Folder: KeyPass**
+3. **Validator Binaries**
+
+- During the investigation, two custom file validation binaries were discovered: one for **Windows** and another for **Linux**. These binaries seem to validate files based on their hash, with a specific environment variable, `ADA`, expected to be set to the value `Lovelace`.
+
+- **Windows Validator**: This binary checks the `ADA` environment variable and validates the files accordingly. Full details and reverse-engineered code can be found in **Annex A**.
+  
+- **Linux Validator**: The Linux version, reverse-engineered from the binary, follows similar validation logic as the Windows validator. For the full reverse-engineered code, please refer to **Annex A**.
+
+- **Key Findings**:
+  - Both validators check the presence of a specific environment variable, `ADA`, which is expected to be set to `Lovelace` (as explained in **Annex A**).
+  - The validators compare the computed SHA-256 hash of the file content with the file name to determine the file's validity. 
+  - All files under the **Source** folder were marked as `Valid`, while files in the **KeyPass** and **Remote** folders were marked as `Invalid` (see **Annex C** for details).
+
+---
+
+This way, the references to the code listings in the annex provide context and direct the reader to more detailed information in the annex at the end of your document. You can adjust the annex letters/numbers (e.g., Annex A, B, C) to match the document's style or format.
+1. **Folder: KeyPass**
 
    - **Contents**:  
      - Each image in this folder has slight hexadecimal modifications when compared to the original images in the Source folder. The modifications are minimal and analyzed for differences using `exif_comp.py`. Hash comparisons reveal small, deliberate alterations between the images.
@@ -176,20 +190,20 @@ The information presented in this document is based on the assumption that the c
        - `6f -> o`
      - These differences suggest the changes may correspond to specific readable data in the images.
 
-5. **Connections to Remote Machine**:
+2. **Connections to Remote Machine**:
    - **Private Key**: SSH private key suggests access to a remote machine.
    - **Public Key `serj@GWS-HOME`**: Derivable from the private key using password `Cardano`. Perhaps, a windows machine, due to hostname pattern.
    - **Key Findings**: The key data and public/private key pairs suggest that `serj` may have access to a remote Cardano node.
 
-6. **Folder: Remote**:
+3. **Folder: Remote**:
    - Contains indexed images with slight variations (two hex bytes differences), potentially used for obfuscation or encoding purposes.
    - **Key Findings**: This folder likely contains further clues about the data transmission methods used by `serj` and could hide additional files or instructions.
 
-7. **Public Key `byron@cordano`**:
+4. **Public Key `byron@cordano`**:
    - A public key derived from the private key, but the user@host field (`byron@cordano`) is suspiciously altered.
    - **Key Findings**: Likely an intentional modification to hide the true identity of the machine `serj` is connecting to.
 
-8. **Cardano Node IP and Location (Mistaken Direction)**:
+5. **Cardano Node IP and Location (Mistaken Direction)**:
    - IP Address: 125.251.180.194
    - Location: Seoul, South Korea
    - Important Note:
@@ -205,46 +219,114 @@ The information presented in this document is based on the assumption that the c
 
 ---
 
-## Draft ideas
+## Anex section
 
-Source
-58
-7e
-0d
-5d
-f2
-9d
-ba
-1092  16 || 146
-1dc8  29 || 200
-eda9 237 || 169
-f22c 242 || 44
+### Annex A: Reverse-Engineered Linux Validator Code Listing
 
-KeyPass
-43  C
-61  a
-72  r
-64  d
-61  a
-6e  n
-6f  o
-Remote
-007d  125 || 215
-01fb  251 || 191
-02b4  180 || 75
-03c2 194 || 44
+The following code listing is the reverse-engineered validator for Linux, implemented in C# and built using .NET. This validator checks if the `ADA` environment variable is set to `Lovelace` and validates files by comparing their SHA-256 hash with the filename.
 
-125.251.180.194
+```csharp
+using System;
+using System.IO;
+using System.Security.Cryptography;
 
-215.191.75.44
+namespace Validator
+{
+   // Token: 0x02000002 RID: 2
+   internal class Program
+   {
+      // Token: 0x06000001 RID: 1 RVA: 0x00002048 File Offset: 0x00000248
+      private static void Main(string[] args)
+      {
+         if (1 > args.Length)
+         {
+            Console.WriteLine("You forgot something!");
+            Environment.Exit(42);
+         }
+         string pwd = Program.EBG13(Environment.GetEnvironmentVariable(Program.EBG13("NQN")));
+         if (!string.IsNullOrEmpty(pwd) && Program.EBG13(Program.EBG13(pwd)) == "Ybirynpr")
+         {
+            byte[] tmp = File.ReadAllBytes(args[0]);
+            using (SHA256 sha = SHA256.Create())
+            {
+               if (BitConverter.ToString(sha.ComputeHash(tmp)).Replace("-", "").ToLower() == Path.GetFileNameWithoutExtension(args[0]).ToLower())
+               {
+                  Console.WriteLine("Valid");
+                  goto IL_BC;
+               }
+               Console.WriteLine("Invalid");
+               goto IL_BC;
+            }
+            goto IL_B0;
+            IL_BC:
+            Environment.Exit(0);
+            return;
+         }
+         for (;;)
+         {
+            IL_B0:
+            Console.Write("Gotcha! You are dead!");
+         }
+      }
 
-16.29.237.242
+      // Token: 0x06000002 RID: 2 RVA: 0x00002128 File Offset: 0x00000328
+      private static string EBG13(string input)
+      {
+         if (string.IsNullOrEmpty(input))
+         {
+            return null;
+         }
+         char[] buffer = new char[input.Length];
+         for (int i = 0; i < input.Length; i++)
+         {
+            char c = input[i];
+            if (c >= 'a' && c <= 'z')
+            {
+               int j = (int)(c + '\r');
+               if (j > 122)
+               {
+                  j -= 26;
+               }
+               buffer[i] = (char)j;
+            }
+            else if (c >= 'A' && c <= 'Z')
+            {
+               int k = (int)(c + '\r');
+               if (k > 90)
+               {
+                  k -= 26;
+               }
+               buffer[i] = (char)k;
+            }
+            else
+            {
+               buffer[i] = c;
+            }
+         }
+         return new string(buffer);
+      }
+   }
+}
+```
 
-130.4.75.61
+### Annex B: Explanation of Key Components
 
-7.31.43.60
+1. **Main Validation Logic**:
+   - The validator takes a file path as an argument and checks if the `ADA` environment variable (encoded as `NQN` through a basic `EBG13` encoding) is set to `Lovelace` (also encoded via `EBG13`).
+   - If the condition is met, it computes the file's SHA-256 hash and compares it to the filename (excluding the extension) to validate whether the file is `Valid` or `Invalid`.
 
-007d01fb02b403c2
+2. **EBG13 Encoding**:
+   - The `EBG13` function is a custom implementation of the ROT13 cipher (but with a 13-character shift) used to obfuscate string values, including the environment variable and expected password.
+   - For example, the obfuscated word "Ybirynpr" decodes to "Lovelace."
 
-10, 92, 1d, c8, ed, a9, f2, 2c, 00, 7d, 01, fb, 02, b4, 03, c2
-1, 0, 9, 2, 1, d, c, 8, e, d, a, 9, f, 2, 2, c, 0, 0, 7, d, 0, 1, f, b, 0, 2, b, 4, 0, 3, c, 2
+### Annex C: Summary of Findings
+
+- **Windows Validator**:
+  - Similar functionality as the Linux version, checking the `ADA` environment variable for `Lovelace` and verifying the file's hash.
+  
+- **Custom Validation System**:
+  - These validators appear to be part of a custom system, possibly for a **blockchain**-related application like **Cardano**.
+  - Validation is performed by comparing the hash of the file contents with the file name, ensuring data integrity.
+
+- **Images Status**:
+  - Images under the `Source` folder have been verified as `Valid`, while those under the `KeyPass` and `Remote` folders are marked as `Invalid`.
