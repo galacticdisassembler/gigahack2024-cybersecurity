@@ -52,27 +52,21 @@ The information presented in this document is based on the assumption that the c
      - **Folder: KeyPass**: Contains images slightly modified from the `Source` folder (1 hex byte difference).
      - **Folder: Remote**: Indexed images with two hex bytes difference, potentially used to obfuscate or encode data.
      - **Key Findings**: Sensitive cryptographic data (public/private keys) found, suggesting potential access to external systems.
-To reference the code listings in your investigation chapter, you can use formal cross-references and briefly describe what each annex covers. Here's an example of how you could reference the annexes:
-
----
 
 3. **Validator Binaries**
 
-- During the investigation, two custom file validation binaries were discovered: one for **Windows** and another for **Linux**. These binaries seem to validate files based on their hash, with a specific environment variable, `ADA`, expected to be set to the value `Lovelace`.
+   - During the investigation, two custom file validation binaries were discovered: one for **Windows** and another for **Linux**. These binaries seem to validate files based on their hash, with a specific environment variable, `ADA`, expected to be set to the value `Lovelace`.
 
-- **Windows Validator**: This binary checks the `ADA` environment variable and validates the files accordingly. Full details and reverse-engineered code can be found in **Annex A**.
-  
-- **Linux Validator**: The Linux version, reverse-engineered from the binary, follows similar validation logic as the Windows validator. For the full reverse-engineered code, please refer to **Annex A**.
+   - **Windows Validator**: This binary checks the `ADA` environment variable and validates the files accordingly. Full details and reverse-engineered code can be found in **Annex A**.
 
-- **Key Findings**:
-  - Both validators check the presence of a specific environment variable, `ADA`, which is expected to be set to `Lovelace` (as explained in **Annex A**).
-  - The validators compare the computed SHA-256 hash of the file content with the file name to determine the file's validity. 
-  - All files under the **Source** folder were marked as `Valid`, while files in the **KeyPass** and **Remote** folders were marked as `Invalid` (see **Annex C** for details).
+   - **Linux Validator**: The Linux version, reverse-engineered from the binary, follows similar validation logic as the Windows validator. For the full reverse-engineered code, please refer to **Annex A**.
 
----
+   - **Key Findings**:
+   - Both validators check the presence of a specific environment variable, `ADA`, which is expected to be set to `Lovelace` (as explained in **Annex A**).
+   - The validators compare the computed SHA-256 hash of the file content with the file name to determine the file's validity.
+   - All files under the **Source** folder were marked as `Valid`, while files in the **KeyPass** and **Remote** folders were marked as `Invalid` (see **Annex C** for details).
 
-This way, the references to the code listings in the annex provide context and direct the reader to more detailed information in the annex at the end of your document. You can adjust the annex letters/numbers (e.g., Annex A, B, C) to match the document's style or format.
-1. **Folder: KeyPass**
+4. **Folder: KeyPass**
 
    - **Contents**:  
      - Each image in this folder has slight hexadecimal modifications when compared to the original images in the Source folder. The modifications are minimal and analyzed for differences using `exif_comp.py`. Hash comparisons reveal small, deliberate alterations between the images.
@@ -120,7 +114,7 @@ This way, the references to the code listings in the annex provide context and d
       ```
 
    - **Script Run Results**:
-     - The output below demonstrates hexadecimal changes between the original and modified images, indicating intentional minor adjustments:
+     - The output below demonstrates hexadecimal changes between the original and modified images, indicating intentional minor adjustments (Full output can be found as Annex D):
 
          ```text
          Comparing:
@@ -128,51 +122,7 @@ This way, the references to the code listings in the annex provide context and d
          5876887a860d2634b48a0a766128261cc69f63cb3d00f5793e399e3b2d2111fb
          Differences: 4->5, 3->8
          --------------------------------------------------
-         Comparing:
-         6a613a24bc0556cec9499192866c0b597aa0427599c8d3280b1f65ecefab35a6
-         6a7e3a24bc0556cec9499192866c0b597aa0427599c8d3280b1f65ecefab35a6
-         Differences: 6->7, 1->e
-         --------------------------------------------------
-         Comparing:
-         75ee720170bcf182f0ef6d766723a8a553d7d529f8b949eaadc53bb90dacf8b6
-         75ee0d0170bcf182f0ef6d766723a8a553d7d529f8b949eaadc53bb90dacf8b6
-         Differences: 7->0, 2->d
-         --------------------------------------------------
-         Comparing:
-         82e2e864557ddc3163e2943a2b3e9741006cf43a46812408f056ab45afaff5cd
-         82e2e85d557ddc3163e2943a2b3e9741006cf43a46812408f056ab45afaff5cd
-         Differences: 6->5, 4->d
-         --------------------------------------------------
-         Comparing:
-         970c6c3f61bec951907c5c0bcd2252d18e60dd9745adf0d3955534dc89e2f500
-         970c6c3ff2bec951907c5c0bcd2252d18e60dd9745adf0d3955534dc89e2f500
-         Differences: 6->f, 1->2
-         --------------------------------------------------
-         Comparing:
-         97f952b96f6e267656cf482f8d584a3c0b0eaf8bf237eb01573d84b126fe2684
-         97f952b96f9d267656cf482f8d584a3c0b0eaf8bf237eb01573d84b126fe2684
-         Differences: 6->9, e->d
-         --------------------------------------------------
-         Comparing:
-         9d954ed4c8a66f40b993418b336ae4becce513ce31ac6edaffe97ae7d0ddaab5
-         9d954ed4c8a6ba40b993418b336ae4becce513ce31ac6edaffe97ae7d0ddaab5
-         Differences: 6->b, f->a
-         --------------------------------------------------
-         Comparing:
-         007db8b4e3fe6e97917c6cf40d89b1507f9350f0de9d58ff6a0a0a28311ce22a
-         1092b8b4e3fe6e97917c6cf40d89b1507f9350f0de9d58ff6a0a0a28311ce22a
-         Differences: 0->1, 0->0, 7->9, d->2
-         --------------------------------------------------
-         Comparing:
-         01fb4a28284240c1d85268fb1c2baaa462caf761f0969da17a0c93ea2e8b29d1
-         1dc84a28284240c1d85268fb1c2baaa462caf761f0969da17a0c93ea2e8b29d1
-         Differences: 0->1, 1->d, f->c, b->8
-         --------------------------------------------------
-         Comparing:
-         02b421415a263025ff0456b582fd8710965639fc84f63d68c23349e780fcb4ec
-         eda921415a263025ff0456b582fd8710965639fc84f63d68c23349e780fcb4ec
-         Differences: 0->e, 2->d, b->a, 4->9
-         --------------------------------------------------
+         ...
          Comparing:
          03c2c5805b9834280d2465ec0784964e07cb39dff426c0257f06729994300071
          f22cc5805b9834280d2465ec0784964e07cb39dff426c0257f06729994300071
@@ -190,20 +140,20 @@ This way, the references to the code listings in the annex provide context and d
        - `6f -> o`
      - These differences suggest the changes may correspond to specific readable data in the images.
 
-2. **Connections to Remote Machine**:
+5. **Connections to Remote Machine**:
    - **Private Key**: SSH private key suggests access to a remote machine.
    - **Public Key `serj@GWS-HOME`**: Derivable from the private key using password `Cardano`. Perhaps, a windows machine, due to hostname pattern.
    - **Key Findings**: The key data and public/private key pairs suggest that `serj` may have access to a remote Cardano node.
 
-3. **Folder: Remote**:
+6. **Folder: Remote**:
    - Contains indexed images with slight variations (two hex bytes differences), potentially used for obfuscation or encoding purposes.
    - **Key Findings**: This folder likely contains further clues about the data transmission methods used by `serj` and could hide additional files or instructions.
 
-4. **Public Key `byron@cordano`**:
+7. **Public Key `byron@cordano`**:
    - A public key derived from the private key, but the user@host field (`byron@cordano`) is suspiciously altered.
    - **Key Findings**: Likely an intentional modification to hide the true identity of the machine `serj` is connecting to.
 
-5. **Cardano Node IP and Location (Mistaken Direction)**:
+8. **Cardano Node IP and Location (Mistaken Direction)**:
    - IP Address: 125.251.180.194
    - Location: Seoul, South Korea
    - Important Note:
@@ -330,3 +280,64 @@ namespace Validator
 
 - **Images Status**:
   - Images under the `Source` folder have been verified as `Valid`, while those under the `KeyPass` and `Remote` folders are marked as `Invalid`.
+
+### Annex D: `exif_comp.py` output
+
+```text
+python3 exif_comp.py
+Comparing:
+4376887a860d2634b48a0a766128261cc69f63cb3d00f5793e399e3b2d2111fb
+5876887a860d2634b48a0a766128261cc69f63cb3d00f5793e399e3b2d2111fb
+Differences: 4->5, 3->8
+--------------------------------------------------
+Comparing:
+6a613a24bc0556cec9499192866c0b597aa0427599c8d3280b1f65ecefab35a6
+6a7e3a24bc0556cec9499192866c0b597aa0427599c8d3280b1f65ecefab35a6
+Differences: 6->7, 1->e
+--------------------------------------------------
+Comparing:
+75ee720170bcf182f0ef6d766723a8a553d7d529f8b949eaadc53bb90dacf8b6
+75ee0d0170bcf182f0ef6d766723a8a553d7d529f8b949eaadc53bb90dacf8b6
+Differences: 7->0, 2->d
+--------------------------------------------------
+Comparing:
+82e2e864557ddc3163e2943a2b3e9741006cf43a46812408f056ab45afaff5cd
+82e2e85d557ddc3163e2943a2b3e9741006cf43a46812408f056ab45afaff5cd
+Differences: 6->5, 4->d
+--------------------------------------------------
+Comparing:
+970c6c3f61bec951907c5c0bcd2252d18e60dd9745adf0d3955534dc89e2f500
+970c6c3ff2bec951907c5c0bcd2252d18e60dd9745adf0d3955534dc89e2f500
+Differences: 6->f, 1->2
+--------------------------------------------------
+Comparing:
+97f952b96f6e267656cf482f8d584a3c0b0eaf8bf237eb01573d84b126fe2684
+97f952b96f9d267656cf482f8d584a3c0b0eaf8bf237eb01573d84b126fe2684
+Differences: 6->9, e->d
+--------------------------------------------------
+Comparing:
+9d954ed4c8a66f40b993418b336ae4becce513ce31ac6edaffe97ae7d0ddaab5
+9d954ed4c8a6ba40b993418b336ae4becce513ce31ac6edaffe97ae7d0ddaab5
+Differences: 6->b, f->a
+--------------------------------------------------
+Comparing:
+007db8b4e3fe6e97917c6cf40d89b1507f9350f0de9d58ff6a0a0a28311ce22a
+1092b8b4e3fe6e97917c6cf40d89b1507f9350f0de9d58ff6a0a0a28311ce22a
+Differences: 0->1, 7->9, d->2
+--------------------------------------------------
+Comparing:
+01fb4a28284240c1d85268fb1c2baaa462caf761f0969da17a0c93ea2e8b29d1
+1dc84a28284240c1d85268fb1c2baaa462caf761f0969da17a0c93ea2e8b29d1
+Differences: 0->1, 1->d, f->c, b->8
+--------------------------------------------------
+Comparing:
+02b421415a263025ff0456b582fd8710965639fc84f63d68c23349e780fcb4ec
+eda921415a263025ff0456b582fd8710965639fc84f63d68c23349e780fcb4ec
+Differences: 0->e, 2->d, b->a, 4->9
+--------------------------------------------------
+Comparing:
+03c2c5805b9834280d2465ec0784964e07cb39dff426c0257f06729994300071
+f22cc5805b9834280d2465ec0784964e07cb39dff426c0257f06729994300071
+Differences: 0->f, 3->2, c->2, 2->c
+--------------------------------------------------
+```
