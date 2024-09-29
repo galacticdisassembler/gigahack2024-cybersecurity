@@ -165,7 +165,7 @@ The information presented in this document is based on the assumption that the c
 
 ## Conclusion
 
-   `#TODO`
+   All in all, during this Hackathon we focused on tasks aimed at reducing crime. As a team we gained practical knowledge and improved our skills that are related not only to Cybersecurity, but to many other fields as well. During the investigation, we have found USB flash drive that contained helpful information like private and public keys, and images which proved to be containing the password for private key. It is important to mention that nowadays the cybersecurity has a crucial role and without the effort and resources in that area, the society could suffer. The tasks we worked on were engaging and relevant to real-world issues, so the knowledge we gained is extremely relevant.
 
 ---
 
