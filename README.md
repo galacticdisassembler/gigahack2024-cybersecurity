@@ -22,6 +22,10 @@
 | Cardano node location `Korea`, `Seoul`                                          | ✅             | ❌      | IP lookup showed that IP was in Korea                                                           | Cardano Node Serj connected to was hosted in Korea, Seoul |
 | Cardano pool address `44d7fba88039561837d64773c1e7728c34f1c300edc9fa280263cc7f` | ❌             | ❔      | ❔                                                                                               |                                                           |
 
+## Disclaimer
+
+- As explained in the condition **"Unfortunately, communication with the agent was interrupted, but a package was delivered to the division office..."**, the next assumption could be valid that criminal group knew about spying and made some actions to lead us astray.
+
 ## Investigation
 
 - Double check the flash drive

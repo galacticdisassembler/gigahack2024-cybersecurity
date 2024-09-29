@@ -1,0 +1,51 @@
+[RO]
+Anul este 2042. Sunteți o echipă de agenți Interpol implicați în căutarea operelor de artă digitale furate.
+ 
+În timpul investigației, ați descoperit o rețea de comercianți de pisici criptografici subterani, dar toate încercările de a prinde fizic cel puțin unul dintre participanții rețelei au eșuat.
+
+Recent, unul dintre agenții dvs. a raportat că a existat o ofertă de vânzare a 2 NFT-uri de epocă, a căror valoare exactă nu a fost încă stabilită.
+
+El a raportat că a intrat în posesia unui dispozitiv de stocare a informațiilor destul de vechi care aparținea liderului unei bande de comercianți ilegali sub pseudonimul Byron.
+
+Din păcate, comunicarea cu agentul a fost întreruptă, dar la biroul diviziei a fost livrat un pachet, al cărui singur conținut era acest vechi dispozitiv de stocare a datelor.
+
+Folosind un replicator cuantic, am creat copii perfecte ale dispozitivului, pe care vă invităm să le studiați.
+
+Pentru o mai bună cufundare în lumea artefactelor digitale antice, ați fost trimis în 2024, unde, sub masca participanților la hackaton, va trebui să îndepliniți sarcina care ți-a fost atribuită.
+
+Sarcină: extrageți maximum de informații utile din analiza dispozitivului furnizat. Aveți voie să utilizați orice utilități, sisteme de operare și asistență cu inteligență artificială.
+
+[RU]
+Год 2042. Вы - группы агентов подразделения Интерпола, участвующих в поиске похищенных цифровых произведений искусства.
+ 
+В ходе расследования, вами была обнаружена сеть подпольных торговцев крипто котиками, но все попытки поймать физически хоть кого-то из участников сети оказались безрезультатными.
+
+Недавно один из ваших агентов сообщил, что появилось предложение о продаже 2 старинных NFT, точную стоимость которых ещё предстоит определить.
+
+Он сообщил о том, что в его руки попало достаточно старое устройство хранения информации, которое принадлежало главарю банды нелегальных торговцев под псевдонимом Байрон.
+
+К сожалению, связь с агентом прервалась, но в офис подразделения была доставлена посылка, единственным содержанием которой было это древнее устройство хранения данных.
+
+При помощи квантового репликатора, мы создали идеальные копии устройства, которые предлагаем вам изучить.
+
+Для лучшего погружения в мир древних цифровых артефактов, вы были отправлены в 2024 год, где под видом участников хакатона вам предстоит выполнить поставленную перед вами задачу.
+
+Задание: извлечь максимум полезной информации из анализа предоставленного устройства. Разрешается использовать любые утилиты, операционные системы и помощь искусственного интеллекта.
+
+[EN]
+The year is 2042. You are a team of Interpol agents involved in the search for stolen digital works of art.
+ 
+During the investigation, you discovered a network of underground crypto cat traders, but all attempts to physically catch at least one of the network participants were unsuccessful.
+
+Recently, one of your agents reported that there was an offer for the sale of 2 vintage NFTs, the exact value of which has yet to be determined.
+
+He reported that he had come into possession of a rather old information storage device that belonged to the leader of a gang of illegal traders under the pseudonym Byron.
+
+Unfortunately, communication with the agent was interrupted, but a package was delivered to the division office, the only content of which was this ancient data storage device.
+
+Using a quantum replicator, we created perfect copies of the device, which we invite you to study.
+
+For a better immersion into the world of ancient digital artefacts, you were sent to 2024, where, under the guise of hackathon participants, you will have to complete the task assigned to you.
+
+Task: extract maximum useful information from the analysis of the provided device. You are allowed to use any utilities, operating systems and artificial intelligence assistance.
+
