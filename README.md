@@ -23,7 +23,7 @@
 | **Folder: `Remote`**                                                                | ✅             | ❌      | Indexed images with slight hex differences.                                                                                                                               | Yielded `Cardano Node IP`.                                                                                | Investigate connections between `Remote` folder images and any associated blockchain or network activity.    |
 | **125.251.180.194**                                                                 | ✅             | ✅      | IP address of a Cardano node connected by Serj.                                                                                                                           | Yielded location `Korea`.                                                                                 | Perform network traffic analysis to confirm whether the node is still active. Consider contacting the host.  |
 | **Cardano node location `Korea`, `Seoul`**                                          | ✅             | ✅      | IP lookup indicates the node is hosted in Korea.                                                                                                                          | Cardano node connected to Byron was hosted in Seoul.                                                      | Investigate further connections originating from this node. Look into possible Korean hosting services used. |
-| **Cardano pool address `44d7fba88039561837d64773c1e7728c34f1c300edc9fa280263cc7f`** | ❌             | ✅      | Unknown address. Possibly linked to a Cardano staking pool or transaction.                                                                                                | ❔                                                                                                         | Research Cardano pool databases for information on this address. Investigate for any unusual activity.       |
+| **Cardano pool address `44d7fba88039561837d64773c1e7728c34f1c300edc9fa280263cc7f`** | ✅             | ✅      | Unknown address. Possibly linked to a Cardano staking pool or transaction.                                                                                                | Wrong direction, halt investigation.                                                                                                         | Research Cardano pool databases for information on this address. Investigate for any unusual activity.       |
 
 ## Disclaimer
 
@@ -31,78 +31,177 @@ The information presented in this document is based on the assumption that the c
 
 ## Investigation
 
-- Double check the flash drive
-  
-  - Producer - TrekStor
-  
-  - Mark - Leo
-  
-  - Form factor - Flat as my ex
-  
-  - Designed in Germany
-  
-  - Made in China
-  
-  - Sold in Poland [Trekstor Leo SMARTKEY - pamięć USB - 16GB - dodatkowa opcja dla Twojego Leo Smartkey - Pendrive - Morele.net](https://www.morele.net/pendrive-trekstor-leo-smartkey-pamiec-usb-16gb-dodatkowa-opcja-dla-twojego-leo-smartkey-7424826/) <u>as an addition to a smartkey</u>.
-  
-  - Sold on spanish amazon <https://www.amazon.es/Leo-Memoria-para-Insertar-Smartkey/dp/B00LA1DVZE>
-  
-  - Weight, according to amazon - 798gr
-  
-  - Actual weight - light as fuck
-  
-  - On amazon since - july 2014
-  
-  - ASIN - B00LA1DVZE
-  
-  - Space - 16 GB
-  
-  - Actual space - two volumes (EXFAT 12GB, EXT4 4GB)
+1. **USB Flash Drive**: 
+   - **Producer**: TrekStor, Model: Leo
+   - **Capacity**: 16GB split into two volumes:
+     - **EXFAT Volume** (12GB, Windows-visible): Contains images and validator binaries.
+     - **EXT4 Volume** (4GB, Linux-only): Holds sensitive data like private/public keys and images.
 
-- Who the fuck are we hunting?
-  
-  - The name is `serj`.
-  
-  - Workstation name is `GWS-HOME`.
-  
-  - Wrote a program in <u>C# for linux </u>and <u>C# for windows</u>?
-  
-  - Likes `Astrologic imagery`?
-  
-  - Likes `Lord of the rings`?
-  
-  - Needs `a wallpaper`?
-  
-  - Has `Adobe Photoshop` installed?
-  
-  - ---
-  
-  - ### General Observations
+2. **Volumes Investigation**:
 
-    1. **File Details:**
+   - **EXFAT Volume**:
+     - **Folder: Source**: Contains 27 images with filenames matching file hashes.
+     - **Validator Binaries**:
+       - Windows Validator: A C# program that verifies file integrity if the `ADA` environment variable is set to `Lovelace`.
+       - Linux Validator: Similar to Windows but for Linux (.NET-based).
+     - **Key Findings**: The validator binaries could be linked to a specific Cardano workflow to validate files.
 
-       - The images have varied file sizes, ranging from 1650 KiB to 12 MiB, with different dimensions and megapixels, indicating that they were likely captured by different devices or under varying settings.
-       - The images show diverse resolutions, with some images being smaller (1080x2340) and others significantly larger (9600x6400), which suggests different contexts—possibly mobile devices for smaller images and high-end cameras for larger ones.
+   - **EXT4 Volume**:
+     - **Private Key**: OpenSSH private key found, potentially for remote machine access.
+     - **Public Key `byron@cordano`**: Public key derived from the private key, but the user@host field (`byron@cordano`) appears to be manually changed.
+     - **Folder: KeyPass**: Contains images slightly modified from the `Source` folder (1 hex byte difference).
+     - **Folder: Remote**: Indexed images with two hex bytes difference, potentially used to obfuscate or encode data.
+     - **Key Findings**: Sensitive cryptographic data (public/private keys) found, suggesting potential access to external systems.
 
-    2. **Image Metadata:**
+3. **Validator Binaries**:
+   - **Windows Validator** (C#): Checks if the `ADA` environment variable is set to `Lovelace` and validates files based on their hash.
+   - **Linux Validator** (.NET): Similar functionality, but built for Linux.
+   - **Key Findings**: These validators seem to be part of a custom file validation system, possibly for a blockchain-related application (Cardano). All images under `Source` folder are `Valid`. All images under `KeyPass` and `Remote` folders are `Invalid`
 
-       - Some of the images are associated with metadata comments like "GoodFon.ru" and "CREATOR: gd-jpeg," indicating that some of these files may have been processed by specific software, potentially pointing to post-processing or compression techniques.
-       - The large resolution images (9600x6400, 9000x6000) point to either professional photography or high-resolution digital art.
+4. **Folder: KeyPass**
 
-    3. **Editing/Processing Software:**
+   - **Contents**:  
+     - Each image in this folder has slight hexadecimal modifications when compared to the original images in the Source folder. The modifications are minimal and analyzed for differences using `exif_comp.py`. Hash comparisons reveal small, deliberate alterations between the images.
 
-       - Mentions of the sRGB IEC61966-2.1 color profile in one of the images indicate that the file might have been processed using tools that manage color spaces accurately, suggesting that the creator could have professional or semi-professional expertise in image editing.
+   - **Hexadecimal Comparison Example**:
+     - Images are compared by their hashes, highlighting small changes in specific hexadecimal characters. Here's a sample comparison:
 
-    ### Inferences
+         ```text
+         Comparing two images:
+         4376887a860d2634b48a0a766128261cc69f63cb3d00f5793e399e3b2d2111fb
+         5876887a860d2634b48a0a766128261cc69f63cb3d00f5793e399e3b2d2111fb
+         Differences: 4->5, 3->8
+         ```
 
-    1. **Possible Devices Used:**
+   - **Python Script (`exif_comp.py`)**:
+     - This Python script compares the hashes of images stored in two folders and highlights hexadecimal differences between them.
 
-       - The presence of images with a width of 1080px (likely from a mobile device) along with high-resolution images of 9600px width (from a DSLR or advanced digital camera) suggests that the person might use both mobile photography and professional cameras.
-       - The varied resolutions hint at different use cases for the images—perhaps some for casual or social media use (e.g., mobile phone images) and others for high-quality purposes such as prints or professional work.
+      ```python
+      import re
 
-    2. **Photography or Visual Media Interest:**
+      regex = r"[<>] ======== \.\.\/vol\d+\/[^\/]+\/([a-f0-9]{64})\.jpg"
 
-       - Given the wide range of image sizes and resolutions, the person might have an interest in photography or visual media production. The high-resolution images are suggestive of potential professional or hobbyist-level work.
+      def diff_characters(str1, str2):
+          diff = []
+          for c1, c2 in zip(str1, str2):
+              if c1 != c2:
+                  diff.append(f"{c1}->{c2}")
+          return ', '.join(diff)
+
+      with open('a.txt', 'r') as file:
+          test_str = file.read()
+
+      matches = list(re.finditer(regex, test_str, re.MULTILINE))
+
+      for i in range(0, len(matches), 2):
+          match1 = matches[i]
+          match2 = matches[i + 1]
+          
+          group1 = match1.group(1)
+          group2 = match2.group(1)
+          
+          print(f"Comparing:\n{group1}\n{group2}")
+          print(f"Differences: {diff_characters(group1, group2)}")
+          print("-" * 50)
+      ```
+
+   - **Script Run Results**:
+     - The output below demonstrates hexadecimal changes between the original and modified images, indicating intentional minor adjustments:
+
+         ```text
+         Comparing:
+         4376887a860d2634b48a0a766128261cc69f63cb3d00f5793e399e3b2d2111fb
+         5876887a860d2634b48a0a766128261cc69f63cb3d00f5793e399e3b2d2111fb
+         Differences: 4->5, 3->8
+         --------------------------------------------------
+         Comparing:
+         6a613a24bc0556cec9499192866c0b597aa0427599c8d3280b1f65ecefab35a6
+         6a7e3a24bc0556cec9499192866c0b597aa0427599c8d3280b1f65ecefab35a6
+         Differences: 6->7, 1->e
+         --------------------------------------------------
+         Comparing:
+         75ee720170bcf182f0ef6d766723a8a553d7d529f8b949eaadc53bb90dacf8b6
+         75ee0d0170bcf182f0ef6d766723a8a553d7d529f8b949eaadc53bb90dacf8b6
+         Differences: 7->0, 2->d
+         --------------------------------------------------
+         Comparing:
+         82e2e864557ddc3163e2943a2b3e9741006cf43a46812408f056ab45afaff5cd
+         82e2e85d557ddc3163e2943a2b3e9741006cf43a46812408f056ab45afaff5cd
+         Differences: 6->5, 4->d
+         --------------------------------------------------
+         Comparing:
+         970c6c3f61bec951907c5c0bcd2252d18e60dd9745adf0d3955534dc89e2f500
+         970c6c3ff2bec951907c5c0bcd2252d18e60dd9745adf0d3955534dc89e2f500
+         Differences: 6->f, 1->2
+         --------------------------------------------------
+         Comparing:
+         97f952b96f6e267656cf482f8d584a3c0b0eaf8bf237eb01573d84b126fe2684
+         97f952b96f9d267656cf482f8d584a3c0b0eaf8bf237eb01573d84b126fe2684
+         Differences: 6->9, e->d
+         --------------------------------------------------
+         Comparing:
+         9d954ed4c8a66f40b993418b336ae4becce513ce31ac6edaffe97ae7d0ddaab5
+         9d954ed4c8a6ba40b993418b336ae4becce513ce31ac6edaffe97ae7d0ddaab5
+         Differences: 6->b, f->a
+         --------------------------------------------------
+         Comparing:
+         007db8b4e3fe6e97917c6cf40d89b1507f9350f0de9d58ff6a0a0a28311ce22a
+         1092b8b4e3fe6e97917c6cf40d89b1507f9350f0de9d58ff6a0a0a28311ce22a
+         Differences: 0->1, 0->0, 7->9, d->2
+         --------------------------------------------------
+         Comparing:
+         01fb4a28284240c1d85268fb1c2baaa462caf761f0969da17a0c93ea2e8b29d1
+         1dc84a28284240c1d85268fb1c2baaa462caf761f0969da17a0c93ea2e8b29d1
+         Differences: 0->1, 1->d, f->c, b->8
+         --------------------------------------------------
+         Comparing:
+         02b421415a263025ff0456b582fd8710965639fc84f63d68c23349e780fcb4ec
+         eda921415a263025ff0456b582fd8710965639fc84f63d68c23349e780fcb4ec
+         Differences: 0->e, 2->d, b->a, 4->9
+         --------------------------------------------------
+         Comparing:
+         03c2c5805b9834280d2465ec0784964e07cb39dff426c0257f06729994300071
+         f22cc5805b9834280d2465ec0784964e07cb39dff426c0257f06729994300071
+         Differences: 0->f, 3->2, c->2, 2->c
+         --------------------------------------------------
+         ```
+
+   - **Hexadecimal to ASCII Conversion**:
+     - By converting the hexadecimal values to ASCII, patterns in the differences were discovered. For example:
+       - `43 -> C`
+       - `61 -> a`
+       - `72 -> r`
+       - `64 -> d`
+       - `6e -> n`
+       - `6f -> o`
+     - These differences suggest the changes may correspond to specific readable data in the images.
+
+5. **Connections to Remote Machine**:
+   - **Private Key**: SSH private key suggests access to a remote machine.
+   - **Public Key `serj@GWS-HOME`**: Derivable from the private key using password `Cardano`. Perhaps, a windows machine, due to hostname pattern.
+   - **Key Findings**: The key data and public/private key pairs suggest that `serj` may have access to a remote Cardano node.
+
+6. **Folder: Remote**:
+   - Contains indexed images with slight variations (two hex bytes differences), potentially used for obfuscation or encoding purposes.
+   - **Key Findings**: This folder likely contains further clues about the data transmission methods used by `serj` and could hide additional files or instructions.
+
+7. **Public Key `byron@cordano`**:
+   - A public key derived from the private key, but the user@host field (`byron@cordano`) is suspiciously altered.
+   - **Key Findings**: Likely an intentional modification to hide the true identity of the machine `serj` is connecting to.
+
+8. **Cardano Node IP and Location (Mistaken Direction)**:
+   - IP Address: 125.251.180.194
+   - Location: Seoul, South Korea
+   - Important Note:
+      - Error: This IP was incorrectly derived from the Remote folder, leading to an unintended result.
+      - Misstep: The IP traced to South Korea was a false lead and does not align with the intended investigation.
+   - Key Findings: Although linked to a Cardano node, this is not relevant to the actual investigation and should be disregarded.
+
+---
+
+## Conclusion
+
+   `#TODO`
 
 ---
 
