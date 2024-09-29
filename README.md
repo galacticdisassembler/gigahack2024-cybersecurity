@@ -26,7 +26,7 @@
 
 ## Disclaimer
 
-- As explained in the condition **"Unfortunately, communication with the agent was interrupted, but a package was delivered to the division office..."**, the next assumption could be valid that criminal group knew about spying and made some actions to lead us astray.
+The information presented in this document is based on the assumption that the communication with the agent was interrupted, as noted in the condition: **"Unfortunately, communication with the agent was interrupted, but a package was delivered to the division office..."**. Given these circumstances, it is plausible to assume that the criminal group involved may have been aware of surveillance activities and took deliberate actions to mislead our investigation. This conclusion is speculative and should be treated with caution, as no definitive proof of the group's awareness or intentions has been confirmed.
 
 ## Investigation
 
